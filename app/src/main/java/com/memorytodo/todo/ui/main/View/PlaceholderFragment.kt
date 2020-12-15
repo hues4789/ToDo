@@ -1,19 +1,19 @@
 package com.memorytodo.todo.ui.main.View
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.memorytodo.todo.MainActivity
 import com.memorytodo.todo.R
 import com.memorytodo.todo.ui.main.Model.Task
 import com.memorytodo.todo.ui.main.ViewModel.PageViewModel
+import kotlinx.android.synthetic.main.fragment_main.*
 
 /**
  * A placeholder fragment containing a simple view.
@@ -30,6 +30,8 @@ class PlaceholderFragment : Fragment() {
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel::class.java).apply {
             setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
         }
+
+        setHasOptionsMenu(true)
 
 
     }
@@ -50,18 +52,52 @@ class PlaceholderFragment : Fragment() {
         val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view)
 
         // LayoutManagerの設定
-        if (recyclerView != null) {
-            recyclerView.layoutManager = LinearLayoutManager(activity)
-        }
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+
 
         // CustomAdapterの生成と設定
         taskAdapter = TaskListAdapter(TasklList)
-        if (recyclerView != null) {
-            recyclerView.adapter = taskAdapter
-        }
+        recyclerView.adapter = taskAdapter
 
+
+        //ドラッグアンドドロップ可能、スワイプはなし
+        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            ItemTouchHelper.ACTION_STATE_IDLE
+        ) {
+            //ドラッグアンドドロップ動作
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+
+                val fromPosition = viewHolder?.adapterPosition ?: 0
+                val toPosition = target?.adapterPosition ?: 0
+
+                if (recyclerView != null) {
+                    recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)
+                }
+
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            }
+
+        })
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         return root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.do_check,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

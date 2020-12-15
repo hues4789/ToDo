@@ -1,5 +1,5 @@
 package com.memorytodo.todo.ui.main.Model
 
-interface SectionPager {
+interface SectionPagerInterface {
     fun taskInfo():MutableList<MutableMap<String,String>>
 }
