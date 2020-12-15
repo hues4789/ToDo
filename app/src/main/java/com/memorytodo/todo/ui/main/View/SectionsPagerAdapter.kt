@@ -1,4 +1,4 @@
-package com.memorytodo.todo.ui.main
+package com.memorytodo.todo.ui.main.View
 
 import android.content.Context
 import androidx.fragment.app.Fragment
@@ -7,22 +7,19 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.memorytodo.todo.R
 import com.memorytodo.todo.ui.main.Model.TestDB
 import com.memorytodo.todo.ui.main.View.PlaceholderFragment
+import com.memorytodo.todo.ui.main.ViewModel.SectionsPagerViewModel
 
 
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager)
+class SectionsPagerAdapter( fm: FragmentManager)
     : FragmentPagerAdapter(fm) {
 
-    //本番・テストインスタンス切り替え
-    private val taskDBInfo = TestDB()
+    private val taskDBInfo = SectionsPagerViewModel()
     //DBからtabの数名前(タスク名)取得する処理
-    private val taskInfoList = taskDBInfo.taskInfo()
+    private val taskInfoList = taskDBInfo.taskInfoList
     //タスクの総数
-    private val taskNum :Int = taskInfoList.size
+    private val taskNum :Int = taskDBInfo.taskNum
 
     override fun getItem(position: Int): Fragment {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        //DBのTask情報渡す
         return PlaceholderFragment.newInstance(position + 1)
     }
 

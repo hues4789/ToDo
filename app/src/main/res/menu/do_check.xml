@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menuCheck"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="@string/delete_check_task"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/all_check"
+                android:title="@string/check_all"/>
+            <item
+                android:id="@+id/all_uncheck"
+                android:title="@string/uncheck_all"/>
+            <item
+                android:id="@+id/delete_checked_task"
+                android:title="@string/delete_check_task"/>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/menu"
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title="@string/delete_check_task"
+        app:showAsAction="always">
+    </item>
+</menu>

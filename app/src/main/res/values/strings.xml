@@ -2,4 +2,8 @@
     <string name="app_name">ToDo</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="check_all">全てチェック</string>
+    <string name="uncheck_all">全てチェックを外す</string>
+    <string name="delete_check_task">完了済みタスクを削除</string>
 </resources>
